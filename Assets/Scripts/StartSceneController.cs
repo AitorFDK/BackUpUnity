@@ -13,6 +13,10 @@ public class StartSceneController : MonoBehaviour
 
     bool playClicked = false;
 
+    private void Start() {
+        Application.targetFrameRate = 60;    
+    }
+
     public void ChangeScene(string sceneName) {
         SceneManager.LoadScene(sceneName);
     }

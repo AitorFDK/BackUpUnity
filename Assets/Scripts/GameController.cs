@@ -47,6 +47,8 @@ public class GameController : MonoBehaviour
         rollTheDiceButton.SetActive((currentPhase == Phase.Initial || currentPhase == Phase.Rolling) && currentTurn == Turn.Player);
         otherRollTheDiceButton.SetActive(nPlayers == 2 && (currentPhase == Phase.Initial || currentPhase == Phase.Rolling) && currentTurn == Turn.Other);
 
+        SetNumbersRotation();
+
         switch (currentPhase)
         {
 
@@ -297,9 +299,12 @@ public class GameController : MonoBehaviour
                 }
             }
 
-            if (nPlayers == 1) {
+            if (nPlayers == 1)
+            {
                 StartCoroutine(DoAIMovement(.7f, goodMoves, badMoves));
-            } else {
+            }
+            else
+            {
                 if (goodMoves.Count == 0 && badMoves.Count == 0)
                     currentPhase = Phase.Ending;
             }
@@ -341,36 +346,36 @@ public class GameController : MonoBehaviour
         else
             currentTurn = Turn.Player;
 
-        StartCoroutine(SetNumbersRotation());
+        //StartCoroutine(SetNumbersRotation());
+        rotationTime = 0;
 
         currentPhase = Phase.Initial;
     }
 
-    IEnumerator SetNumbersRotation()
+    private float rotationTime = 3f;
+    void SetNumbersRotation()
     {
-
-        float time = 0;
-
         float targetRotation = nPlayers == 1 ? numberLookingPlayerRot : (currentTurn == Turn.Player ? numberLookingPlayerRot : numberLookingOtherRot);
 
-        while (time < .7f)
+        if (rotationTime > 1.5f)
         {
             for (int i = 0; i < numbers.Count; i++)
             {
-
                 Vector3 v = numbers[i].rotation.eulerAngles;
-                numbers[i].rotation = Quaternion.Euler(v.x, Mathf.SmoothStep(v.y, targetRotation, time / .7f), v.z);
-
-                time += Time.deltaTime;
-                yield return new WaitForEndOfFrame();
+                numbers[i].rotation = Quaternion.Euler(v.x, targetRotation, v.z);
             }
         }
-
-        for (int i = 0; i < numbers.Count; i++)
+        else
         {
-            Vector3 v = numbers[i].rotation.eulerAngles;
-            numbers[i].rotation = Quaternion.Euler(v.x, targetRotation, v.z);
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                Vector3 v = numbers[i].rotation.eulerAngles;
+                numbers[i].rotation = Quaternion.Euler(v.x, Mathf.SmoothStep(v.y, targetRotation, rotationTime / 1.5f), v.z);
+
+            }
         }
+        
+        rotationTime += Time.deltaTime;
     }
 
     bool CheckWinState()
@@ -406,11 +411,11 @@ public class GameController : MonoBehaviour
 
     public void Exit()
     {
-        Application.Quit(0);
+        SceneManager.LoadScene("StartScene");
     }
 
     public void PlayAgain()
     {
-        SceneManager.SetActiveScene(SceneManager.GetActiveScene());
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
