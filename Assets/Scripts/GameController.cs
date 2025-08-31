@@ -68,9 +68,11 @@ public class GameController : MonoBehaviour
 
                 if (!rolling)
                 {
+#if UNITY_EDITOR
                     Debug.Log("End rolling.. number:");
                     foreach (var die in dice)
                         Debug.Log(die.GetCurrentFace());
+#endif
 
                     int num1 = dice[0].GetCurrentFace();
                     int num2 = dice[1].GetCurrentFace();
@@ -374,7 +376,7 @@ public class GameController : MonoBehaviour
 
             }
         }
-        
+
         rotationTime += Time.deltaTime;
     }
 

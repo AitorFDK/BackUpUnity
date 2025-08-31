@@ -25,7 +25,7 @@ public class DieController : MonoBehaviour
     {
         if (isRolling)
         {
-            if (GetComponent<Rigidbody>().velocity == Vector3.zero && deltaRoll > 0.1f)
+            if (GetComponent<Rigidbody>().linearVelocity == Vector3.zero && deltaRoll > 0.1f)
             {
                 isRolling = false;
                 deltaRoll = 0f;
