@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "BackUp.sln"
+    "dotnet.defaultSolution": "BackUp.slnx"
 }

@@ -15,6 +15,8 @@ EditorBuildSettings:
     path: Assets/Scenes/HowToPlayScene.unity
     guid: f6f723a5c83bbb7449e28db947b2691b
   m_configObjects:
+    com.unity.adaptivePerformance.basic.provider_settings: {fileID: 11400000, guid: 57f588fe991804a2ea352ed81c1a664f,
+      type: 2}
     com.unity.adaptiveperformance.google.android.provider_settings: {fileID: 11400000,
       guid: fba40fffced244e7ebe51a9c40d47801, type: 2}
     com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: 8ba88475ef6e1412ea55aa87cc96dfe1,
